@@ -111,6 +111,7 @@ public class AlipayController {
                         .setGoodsDetailList(goodsDetailList);
 
                 AlipayF2FPrecreateResult result = tradeService.tradePrecreate(builder);
+
                 switch (result.getTradeStatus()) {
                     case SUCCESS:
                         log.info("支付宝预下单成功: )");
