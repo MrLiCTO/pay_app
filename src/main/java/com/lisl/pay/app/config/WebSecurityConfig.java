@@ -28,11 +28,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/ali/pay").permitAll()
+                //.antMatchers("/", "/ali/pay").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/ali/index")
+                .successForwardUrl("/ali/index")
+                //.loginPage("/ali/index")
                 .permitAll()
                 .and()
                 .logout()
@@ -41,25 +42,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+//        auth
+//                .inMemoryAuthentication()
+//                .withUser("user").password("password").roles("USER");
         /*auth
                 .jdbcAuthentication().dataSource(dataSource)
                 .usersByUsernameQuery("select username,password,true from user where username= ?")
                 .authoritiesByUsernameQuery("select username,role_user,true from role where username= ?")
                 //.passwordEncoder();
                 .passwordEncoder(passwordEncoder());*/
-        //auth.userDetailsService(securityUserServiceImpl);
+        auth.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
     }
 
-    @Bean
+    /*@Bean
     public BCryptPasswordEncoder passwordEncoder() throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(13);
         //StandardPasswordEncoder passwordEncoder = new StandardPasswordEncoder("53cr3t");
         //PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         return passwordEncoder;
-    }
+    }*/
 
 
 

@@ -21,6 +21,8 @@ spring:
     connectionProperties=druid.stat.mergeSql: true;druid.stat.slowSqlMillis=5000
   jpa:
     database: MySQL
+    #hibernate:
+      #ddl-auto: create
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
