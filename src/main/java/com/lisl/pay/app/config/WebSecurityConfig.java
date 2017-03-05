@@ -1,5 +1,9 @@
 package com.lisl.pay.app.config;
 
+import com.lisl.pay.app.model.SecurityAuthority;
+import com.lisl.pay.app.model.SecurityRole;
+import com.lisl.pay.app.model.SecurityUser;
+import com.lisl.pay.app.repository.SecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.sql.DataSource;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/2.
@@ -23,6 +29,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Autowired
     private UserDetailsService securityUserServiceImpl;
+    @Autowired
+    private SecurityUserRepository securityUserRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -50,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username,role_user,true from role where username= ?")
                 //.passwordEncoder();
                 .passwordEncoder(passwordEncoder());*/
-        auth.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
+        auth.inMemoryAuthentication().withUser("").password("").roles("").authorities("");//.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
     }
 
     /*@Bean
