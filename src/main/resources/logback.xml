@@ -36,6 +36,7 @@
 
 
 	<!-- 日志输出级别 -->
+	<!--http://blog.csdn.net/zmx729618/article/details/51096593-->
 	<root level="INFO">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />

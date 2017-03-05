@@ -37,7 +37,8 @@
             <label>调调带动</label>
             <p class="bg-info" th:text="${msg.extraInfo}"></p>
         </div>
-        <div sec:authorize="hasRole('ROLE_USER')">
+        <!--<div sec:authorize="hasRole('ROLE_USER')">-->
+        <div sec:authorize="hasAuthority('world0')">
             <p class="bg-info">无更多显示信息</p>
         </div>
         <form th:action="@{/logout}" method="post">
