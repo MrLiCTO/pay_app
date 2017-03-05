@@ -28,12 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                //.antMatchers("/", "/ali/pay").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .successForwardUrl("/ali/index")
-                //.loginPage("/ali/index")
+                .loginPage("/login")
+                .failureForwardUrl("/login?error")
                 .permitAll()
                 .and()
                 .logout()
