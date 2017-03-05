@@ -29,8 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
     @Autowired
     private UserDetailsService securityUserServiceImpl;
-    @Autowired
-    private SecurityUserRepository securityUserRepository;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -58,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username,role_user,true from role where username= ?")
                 //.passwordEncoder();
                 .passwordEncoder(passwordEncoder());*/
-        auth.inMemoryAuthentication().withUser("").password("").roles("").authorities("");//.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
     }
 
     /*@Bean
