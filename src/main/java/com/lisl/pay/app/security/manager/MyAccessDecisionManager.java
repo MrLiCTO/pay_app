@@ -1,4 +1,4 @@
-package com.lisl.pay.app.config;
+package com.lisl.pay.app.security.manager;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
