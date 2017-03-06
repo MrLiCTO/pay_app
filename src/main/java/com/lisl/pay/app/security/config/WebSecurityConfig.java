@@ -1,4 +1,4 @@
-package com.lisl.pay.app.config;
+package com.lisl.pay.app.security.config;
 
 import com.lisl.pay.app.model.SecurityAuthority;
 import com.lisl.pay.app.model.SecurityRole;
@@ -25,10 +25,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    /*@Autowired
+    private DataSource dataSource;*/
     @Autowired
-    private DataSource dataSource;
-    @Autowired
-    private UserDetailsService securityUserServiceImpl;
+    private UserDetailsService securityUserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username,role_user,true from role where username= ?")
                 //.passwordEncoder();
                 .passwordEncoder(passwordEncoder());*/
-        auth.userDetailsService(securityUserServiceImpl);//.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(securityUserService);//.passwordEncoder(passwordEncoder());
     }
 
     /*@Bean
@@ -66,7 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         return passwordEncoder;
     }*/
-
 
 
 }

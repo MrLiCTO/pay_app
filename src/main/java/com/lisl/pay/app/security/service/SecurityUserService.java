@@ -1,13 +1,11 @@
-package com.lisl.pay.app.Service.impl;
+package com.lisl.pay.app.security.service;
 
 
-import com.lisl.pay.app.Service.SecurityUserService;
 import com.lisl.pay.app.model.SecurityAuthority;
 import com.lisl.pay.app.model.SecurityRole;
 import com.lisl.pay.app.model.SecurityUser;
 import com.lisl.pay.app.repository.SecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2017/1/19.
  */
 @Service
-public class SecurityUserServiceImpl implements SecurityUserService{
+public class SecurityUserService implements UserDetailsService{
     @Autowired
     private SecurityUserRepository securityUserRepository;
     @Override
