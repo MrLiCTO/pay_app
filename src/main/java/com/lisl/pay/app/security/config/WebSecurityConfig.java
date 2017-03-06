@@ -56,16 +56,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select username,role_user,true from role where username= ?")
                 //.passwordEncoder();
                 .passwordEncoder(passwordEncoder());*/
-        auth.userDetailsService(securityUserService);//.passwordEncoder(passwordEncoder());
+        auth.userDetailsService(securityUserService).passwordEncoder(passwordEncoder());
     }
 
-    /*@Bean
+    @Bean
     public BCryptPasswordEncoder passwordEncoder() throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(13);
         //StandardPasswordEncoder passwordEncoder = new StandardPasswordEncoder("53cr3t");
         //PasswordEncoder passwordEncoder = NoOpPasswordEncoder.getInstance();
         return passwordEncoder;
-    }*/
+    }
 
 
 }

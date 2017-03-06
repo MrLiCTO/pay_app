@@ -33,7 +33,7 @@
     <div class="starter-template">
         <h1 th:text="${msg.title}"></h1>
         <p class="bg-primary" th:text="${msg.content}"></p>
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasRole('ROLE_role0')">
             <label>调调带动</label>
             <p class="bg-info" th:text="${msg.extraInfo}"></p>
         </div>

@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -31,9 +32,11 @@ public class PayAppApplicationTests {
 	private SecurityAuthorityRepository securityAuthorityRepository;
 	@Autowired
 	private SysModuleRepository sysModuleRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	@Test
 	public void contextLoads() {
-		SecurityUser securityUser=new SecurityUser();
+		/*SecurityUser securityUser=new SecurityUser();
 		securityUser.setId(UUID.randomUUID().toString().replace("-",""));
 		securityUser.setAccountNonExpired(true);
 		securityUser.setAccountNonLocked(true);
@@ -69,17 +72,18 @@ public class PayAppApplicationTests {
 		}
 		securityRoleRepository.save(roles);
 		securityUser.setRoles(roles);
-		securityUserRepository.save(securityUser);
+		securityUserRepository.save(securityUser);*/
 	}
 	@Test
 	public void testFind() {
-		SecurityUser hello = securityUserRepository.findByUserName("testHello");
-		List<SecurityRole> roles = hello.getRoles();
-		HashSet<SecurityAuthority> set = new HashSet<>();
-		for (SecurityRole role:roles){
-			set.addAll(role.getAuthorities());
+		/*SecurityUser hello = securityUserRepository.findByUserName("testHello");
+		String encode = passwordEncoder.encode(hello.getPassWord());
+		hello.setPassWord(encode);
+		securityUserRepository.save(hello);*/
+		for (int i=0;i<10;i++){
+			String encode = passwordEncoder.encode("test_pwd");
+			System.out.println(encode);
 		}
-		System.out.println(hello);
 	}
 
 }

@@ -6,6 +6,8 @@ import com.lisl.pay.app.model.SecurityRole;
 import com.lisl.pay.app.model.SecurityUser;
 import com.lisl.pay.app.repository.SecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -25,9 +27,10 @@ public class SecurityUserService implements UserDetailsService{
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         SecurityUser user = securityUserRepository.findByUserName(s);
         List<SecurityRole> roles = user.getRoles();
-        HashSet<SecurityAuthority> set = new HashSet<>();
+        HashSet<GrantedAuthority> set = new HashSet<>();
         for (SecurityRole role:roles){
-            set.addAll(role.getAuthorities());
+            set.addAll(role.getAuthorities());//加入用户权限
+            set.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));//加入用户角色
         }
         user.setAuthorities(set);
         return user;

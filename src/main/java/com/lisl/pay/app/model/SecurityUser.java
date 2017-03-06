@@ -43,7 +43,7 @@ public class SecurityUser implements UserDetails{
             joinColumns=@JoinColumn(name="user_id"))
     private List<SecurityRole> roles;
     @Transient
-    private Set<SecurityAuthority> authorities;
+    private Set<GrantedAuthority> authorities;
 
     public String getUserName() {
         return userName;
@@ -93,7 +93,7 @@ public class SecurityUser implements UserDetails{
         this.enabled = enabled;
     }
 
-    public void setAuthorities(Set<SecurityAuthority> authorities) {
+    public void setAuthorities(Set<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
