@@ -37,9 +37,14 @@
 
 	<!-- 日志输出级别 -->
 	<!--http://blog.csdn.net/zmx729618/article/details/51096593-->
-	<root level="INFO">
+	<root level="warn">
 		<appender-ref ref="FILE" />
 		<appender-ref ref="STDOUT" />
 	</root>
+
+	<!--打印sql语句,org.hibernate.SQL 类的全路径 -->
+	<logger name="org.hibernate.SQL" level="debug" additivity="false">
+		<appender-ref ref="STDOUT"/>
+	</logger>
 
 </configuration>
