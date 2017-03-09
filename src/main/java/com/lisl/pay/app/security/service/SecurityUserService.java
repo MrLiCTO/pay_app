@@ -1,7 +1,6 @@
 package com.lisl.pay.app.security.service;
 
 
-import com.lisl.pay.app.model.SecurityAuthority;
 import com.lisl.pay.app.model.SecurityRole;
 import com.lisl.pay.app.model.SecurityUser;
 import com.lisl.pay.app.repository.SecurityUserRepository;
@@ -20,17 +19,21 @@ import java.util.List;
  * Created by Administrator on 2017/1/19.
  */
 @Service
-public class SecurityUserService implements UserDetailsService{
+public class SecurityUserService implements UserDetailsService {
     @Autowired
     private SecurityUserRepository securityUserRepository;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         SecurityUser user = securityUserRepository.findByUserName(s);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户" + s + "不存在");
+        }
         List<SecurityRole> roles = user.getRoles();
         HashSet<GrantedAuthority> set = new HashSet<>();
-        for (SecurityRole role:roles){
+        for (SecurityRole role : roles) {
             set.addAll(role.getAuthorities());//加入用户权限
-            set.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));//加入用户角色
+            set.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));//加入用户角色
         }
         user.setAuthorities(set);
         return user;

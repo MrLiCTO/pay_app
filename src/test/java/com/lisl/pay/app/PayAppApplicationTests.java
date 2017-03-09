@@ -80,10 +80,10 @@ public class PayAppApplicationTests {
 		String encode = passwordEncoder.encode(hello.getPassWord());
 		hello.setPassWord(encode);
 		securityUserRepository.save(hello);*/
-		for (int i=0;i<10;i++){
+		//for (int i=0;i<10;i++){
 			String encode = passwordEncoder.encode("test_pwd");
-			System.out.println(encode);
-		}
+			System.out.println(passwordEncoder.matches("test_pwd",encode));
+		//}
 	}
 
 }
