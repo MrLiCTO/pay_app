@@ -1,5 +1,6 @@
 package com.lisl.pay.app.security.config;
 
+import com.lisl.pay.app.security.handler.MyAuthenticationFailureHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
@@ -33,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .failureForwardUrl("/login?error=true")
+                .loginProcessingUrl("/login")
                 .permitAll()
                 .and()
                 .logout()
@@ -65,7 +64,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UsernamePasswordAuthenticationFilter authenticationFilter() throws Exception {
         UsernamePasswordAuthenticationFilter authenticationFilter = new UsernamePasswordAuthenticationFilter();
+        authenticationFilter.setAuthenticationFailureHandler(handler());
         authenticationFilter.setAuthenticationManager(this.authenticationManager());
         return authenticationFilter;
+    }
+
+    @Bean
+    public MyAuthenticationFailureHandler handler() throws Exception {
+        MyAuthenticationFailureHandler handler = new MyAuthenticationFailureHandler("/login?error=true");
+        return handler;
     }
 }
