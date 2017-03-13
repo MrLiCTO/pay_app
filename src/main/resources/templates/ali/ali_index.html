@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>支付宝</title>
+</head>
+<body>
+<a th:href="@{/ali/pay}">支付</a>
+<label th:if="${image!=null}">
+    <img th:src="@{${image}}"/>
+</label>
+</body>
+</html>

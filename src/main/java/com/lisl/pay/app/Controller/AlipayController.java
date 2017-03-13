@@ -14,11 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.View;
 
-import javax.servlet.ServletOutputStream;
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +28,14 @@ import java.util.List;
 @RequestMapping("ali")
 public class AlipayController {
     public Logger log = LoggerFactory.getLogger(this.getClass());
-
-    @RequestMapping("index")
-    public ModelAndView index(){
-        return new ModelAndView("index");
+    @RolesAllowed("ROLE_001")
+    @RequestMapping("aliIndex")
+    public ModelAndView aliIndex(){
+        return new ModelAndView("ali/ali_index");
     }
     @RequestMapping("pay")
     public ModelAndView qrcode(HttpServletRequest request, ModelAndView modelAndView){
-        try{
+     try{
             //ServletOutputStream out = response.getOutputStream();
             //if(request.getParameter("outTradeNo")!=null){
                 // 一定要在创建AlipayTradeService之前设置参数
@@ -125,7 +123,7 @@ public class AlipayController {
                         }
                         String fileName = String.format("images%sqr-%s.png", File.separator, res.getOutTradeNo());
                         String filePath = new StringBuilder(basePath).append(fileName).toString();
-                        modelAndView = new ModelAndView("index").addObject("image", "/"+fileName);
+                        modelAndView = new ModelAndView("ali/ali_index").addObject("image", "/"+fileName);
                         //out.println("<img src=\"" + fileName + "\" />");
                         //out.println("filePath:" + filePath);
                         ZxingUtils.getQRCodeImge(res.getQrCode(), 256, filePath);
