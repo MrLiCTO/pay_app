@@ -19,7 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  */
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(jsr250Enabled = true)
+//@EnableGlobalMethodSecurity(jsr250Enabled = true)
+//@EnableGlobalMethodSecurity(securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /*@Autowired
     private DataSource dataSource;*/
@@ -36,17 +38,26 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .addFilter(authenticationFilter())
                 .authorizeRequests()
-                .anyRequest().authenticated()
+                .anyRequest()
+                .authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/")
                 .and()
                 .logout()
+                //.permitAll()
+                //.logoutUrl("")
+                //.invalidateHttpSession(true)
+                //.and()
+                //.exceptionHandling()
+                //.accessDeniedHandler(myAccessDeniedHandler)
+                // .accessDeniedPage("")
                 .permitAll();
     }
 
