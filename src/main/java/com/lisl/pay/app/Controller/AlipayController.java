@@ -9,6 +9,7 @@ import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("ali")
+@Api(value = "充值相关", tags = {"充值相关"})
 public class AlipayController {
     public Logger log = LoggerFactory.getLogger(this.getClass());
 
