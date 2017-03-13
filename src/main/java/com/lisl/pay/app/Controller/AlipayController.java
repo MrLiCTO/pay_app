@@ -9,9 +9,13 @@ import com.alipay.demo.trade.model.result.AlipayF2FPrecreateResult;
 import com.alipay.demo.trade.service.AlipayTradeService;
 import com.alipay.demo.trade.service.impl.AlipayTradeServiceImpl;
 import com.alipay.demo.trade.utils.ZxingUtils;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,13 +38,21 @@ public class AlipayController {
     //@PreAuthorize("hasAuthority('world0') and hasAuthority('world1')")
     //@PermitAll
     //@DenyAll
-    @RequestMapping("aliIndex")
+    @RequestMapping(value = "aliIndex",method = RequestMethod.GET)
     public ModelAndView aliIndex() {
         return new ModelAndView("ali/ali_index");
     }
-
-    @RequestMapping("pay")
-    public ModelAndView qrcode(HttpServletRequest request, ModelAndView modelAndView) {
+    @ApiOperation(value = "生成支付二维码", notes = "生成支付二维码")
+    @ApiImplicitParams({
+            //@ApiImplicitParam(name = "startDate", dataType = "Date", paramType = "query", value = "开始时间"),
+            //@ApiImplicitParam(name = "endDate", dataType = "Date", paramType = "query", value = "结束时间"),
+            //@ApiImplicitParam(name = "pageNo", dataType = "int", paramType = "query", value = "页码"),
+            //@ApiImplicitParam(name = "pageSize", dataType = "int", paramType = "query", value = "每页数量"),
+            @ApiImplicitParam(name = "tradeNo", dataType = "String", paramType = "query", value = "交易单号"),
+    })
+    @RequestMapping(value = "pay",method = RequestMethod.GET)
+    public ModelAndView qrcode(HttpServletRequest request) {
+             ModelAndView modelAndView=new ModelAndView();
         try {
             //ServletOutputStream out = response.getOutputStream();
             //if(request.getParameter("outTradeNo")!=null){

@@ -13,14 +13,14 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class HomeController {
-    @RequestMapping("/")
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(Model model) {
         Msg msg = new Msg("测试标题", "测试内容", "额外信息，只对管理员显示");
         model.addAttribute("msg", msg);
         return "index";
     }
 
-    @RequestMapping("/test_security")
+    @RequestMapping(value = "/test_security",method = RequestMethod.GET)
     public String testSecurity(Model model) {
         Msg msg = new Msg("测试标题", "测试内容", "额外信息，只对管理员显示");
         model.addAttribute("msg", msg);
