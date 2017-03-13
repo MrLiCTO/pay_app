@@ -32,6 +32,8 @@ public class AlipayController {
     //@Secured({"world0"})
     //@PreAuthorize("hasRole('ROLE_role0O')")
     //@PreAuthorize("hasAuthority('world0') and hasAuthority('world1')")
+    //@PermitAll
+    //@DenyAll
     @RequestMapping("aliIndex")
     public ModelAndView aliIndex() {
         return new ModelAndView("ali/ali_index");
