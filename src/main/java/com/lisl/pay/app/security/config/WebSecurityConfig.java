@@ -52,12 +52,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 //.permitAll()
-                //.logoutUrl("")
+                //.logoutSuccessHandler(myLogoutSuccessHandler)
+                //.logoutUrl("/logout")
                 //.invalidateHttpSession(true)
                 //.and()
                 //.exceptionHandling()
                 //.accessDeniedHandler(myAccessDeniedHandler)
-                // .accessDeniedPage("")
+                //.accessDeniedPage("/deniedpage")
                 .permitAll();
     }
 

@@ -41,7 +41,6 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
             this.logger.debug("Forwarding to " + this.defaultFailureUrl);
             request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
         } else {
-            request.setAttribute("msg", exception.getMessage());
             this.logger.debug("Redirecting to " + this.defaultFailureUrl);
             //response.sendRedirect(this.defaultFailureUrl);
             this.redirectStrategy.sendRedirect(request, response, this.defaultFailureUrl);
