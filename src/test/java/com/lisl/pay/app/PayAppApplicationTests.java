@@ -1,14 +1,10 @@
 package com.lisl.pay.app;
 
-import com.lisl.pay.app.model.SecurityAuthority;
-import com.lisl.pay.app.model.SecurityRole;
 import com.lisl.pay.app.model.SecurityUser;
-import com.lisl.pay.app.model.SysModule;
 import com.lisl.pay.app.repository.SecurityAuthorityRepository;
 import com.lisl.pay.app.repository.SecurityRoleRepository;
 import com.lisl.pay.app.repository.SecurityUserRepository;
 import com.lisl.pay.app.repository.SysModuleRepository;
-import com.sun.jmx.snmp.internal.SnmpSecurityModel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -81,8 +75,9 @@ public class PayAppApplicationTests {
 		hello.setPassWord(encode);
 		securityUserRepository.save(hello);*/
 		//for (int i=0;i<10;i++){
-			String encode = passwordEncoder.encode("test_pwd");
-			System.out.println(passwordEncoder.matches("test_pwd",encode));
+		List<SecurityUser> list=new ArrayList();
+		String encode = passwordEncoder.encode("test_pwd");
+		System.out.println(passwordEncoder.matches("test_pwd",encode));
 		//}
 	}
 

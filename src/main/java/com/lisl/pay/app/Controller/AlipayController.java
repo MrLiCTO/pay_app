@@ -40,10 +40,11 @@ public class AlipayController {
     //@PreAuthorize("hasAuthority('world0') and hasAuthority('world1')")
     //@PermitAll
     //@DenyAll
-    @RequestMapping(value = "aliIndex",method = RequestMethod.GET)
+    @RequestMapping(value = "aliIndex", method = RequestMethod.GET)
     public ModelAndView aliIndex() {
         return new ModelAndView("ali/ali_index");
     }
+
     @ApiOperation(value = "生成支付二维码", notes = "生成支付二维码")
     @ApiImplicitParams({
             //@ApiImplicitParam(name = "startDate", dataType = "Date", paramType = "query", value = "开始时间"),
@@ -52,9 +53,9 @@ public class AlipayController {
             //@ApiImplicitParam(name = "pageSize", dataType = "int", paramType = "query", value = "每页数量"),
             @ApiImplicitParam(name = "tradeNo", dataType = "String", paramType = "query", value = "交易单号"),
     })
-    @RequestMapping(value = "pay",method = RequestMethod.GET)
+    @RequestMapping(value = "pay", method = RequestMethod.GET)
     public ModelAndView qrcode(HttpServletRequest request) {
-             ModelAndView modelAndView=new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         try {
             //ServletOutputStream out = response.getOutputStream();
             //if(request.getParameter("outTradeNo")!=null){
