@@ -1,6 +1,5 @@
 package com.lisl.pay.app.repository;
 
-import com.lisl.pay.app.model.SecurityUser;
 import com.lisl.pay.app.model.SysModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
