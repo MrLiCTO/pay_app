@@ -1,5 +1,6 @@
 package com.lisl.pay.app.model.one;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +14,11 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "security_user")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SecurityUser implements UserDetails{
     @Id
     @Column(unique = true, nullable = false)
@@ -44,59 +50,6 @@ public class SecurityUser implements UserDetails{
     private List<SecurityRole> roles;
     @Transient
     private Set<GrantedAuthority> authorities;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassWord() {
-        return passWord;
-    }
-
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public void setAccountNonExpired(boolean accountNonExpired) {
-        this.accountNonExpired = accountNonExpired;
-    }
-
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-
-    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
-        this.credentialsNonExpired = credentialsNonExpired;
-    }
-
-    public List<SecurityRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SecurityRole> roles) {
-        this.roles = roles;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAuthorities(Set<GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;

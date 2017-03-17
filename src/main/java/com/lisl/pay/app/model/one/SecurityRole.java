@@ -1,5 +1,7 @@
 package com.lisl.pay.app.model.one;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "security_role")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SecurityRole implements Serializable {
     @Id
     @Column(unique = true, nullable = false)
@@ -26,52 +33,4 @@ public class SecurityRole implements Serializable {
             inverseJoinColumns=@JoinColumn(name="authority_id"),
             joinColumns=@JoinColumn(name="role_id"))
     private List<SecurityAuthority> authorities;
-
-    public List<SecurityUser> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<SecurityUser> users) {
-        this.users = users;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public List<SecurityAuthority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(List<SecurityAuthority> authorities) {
-        this.authorities = authorities;
-    }
 }

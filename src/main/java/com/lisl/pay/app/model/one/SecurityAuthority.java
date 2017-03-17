@@ -1,5 +1,6 @@
 package com.lisl.pay.app.model.one;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
@@ -10,6 +11,11 @@ import java.util.List;
  */
 @Entity
 @Table(name = "security_authority")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SecurityAuthority implements GrantedAuthority {
     @Id
     @Column(unique = true, nullable = false)
@@ -22,54 +28,6 @@ public class SecurityAuthority implements GrantedAuthority {
     @ManyToMany(mappedBy = "authorities")
     private List<SecurityRole> roles;
     private boolean enabled;
-
-    public List<SecurityRole> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<SecurityRole> roles) {
-        this.roles = roles;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setOperation(String operation) {
-        this.operation = operation;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getOperation() {
-        return operation;
-    }
-
-    public SysModule getModule() {
-        return module;
-    }
-
-    public void setModule(SysModule module) {
-        this.module = module;
-    }
 
     @Override
     public String getAuthority() {

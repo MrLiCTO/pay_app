@@ -2,8 +2,12 @@ package com.lisl.pay.app.result;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 @ApiModel(value = "payApp", description = "payApp对象")
+@Getter
+@Setter
 class PayAppBean {
 
     @ApiModelProperty(value = "payApp的id")
@@ -11,20 +15,4 @@ class PayAppBean {
 
     @ApiModelProperty(value = "payApp的名称")
     private String name;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
