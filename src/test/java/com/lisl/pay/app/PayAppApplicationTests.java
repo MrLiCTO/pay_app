@@ -1,6 +1,7 @@
 package com.lisl.pay.app;
 
 import com.lisl.pay.app.mango.dao.ShardingPersonDao;
+import com.lisl.pay.app.mango.model.Person;
 import com.lisl.pay.app.mango.service.PersonService;
 import com.lisl.pay.app.model.one.SecurityUser;
 import com.lisl.pay.app.repository.one.SecurityAuthorityRepository;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -78,7 +80,7 @@ public class PayAppApplicationTests {
 
     @Test
     public void testFind() {
-		/*SecurityUser hello = securityUserRepository.findByUserName("testHello");
+        /*SecurityUser hello = securityUserRepository.findByUserName("testHello");
 		String encode = passwordEncoder.encode(hello.getPassWord());
 		hello.setPassWord(encode);
 		securityUserRepository.save(hello);*/
@@ -91,14 +93,14 @@ public class PayAppApplicationTests {
 
     @Test
     public void testMongo() throws Exception {
-        personService.addPerson();
-       /* for (int i = 0; i < 100; i++) {
+        //personService.addPerson();
+        for (int i = 0; i < 100; i++) {
             Person person = new Person();
             person.setAge(i);
             person.setId(UUID.randomUUID().toString().replace("-", ""));
             person.setName("linlin" + i);
             personDao.add(person);
-        }*/
+        }
     }
 
 }
