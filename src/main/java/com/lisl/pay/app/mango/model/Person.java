@@ -40,4 +40,14 @@ public class Person {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id='" + id + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
