@@ -1,6 +1,6 @@
-package com.lisl.pay.app.repository;
+package com.lisl.pay.app.repository.one;
 
-import com.lisl.pay.app.model.SysModule;
+import com.lisl.pay.app.model.one.SysModule;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

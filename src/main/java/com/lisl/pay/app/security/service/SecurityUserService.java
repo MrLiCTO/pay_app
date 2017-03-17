@@ -1,9 +1,9 @@
 package com.lisl.pay.app.security.service;
 
 
-import com.lisl.pay.app.model.SecurityRole;
-import com.lisl.pay.app.model.SecurityUser;
-import com.lisl.pay.app.repository.SecurityUserRepository;
+import com.lisl.pay.app.model.one.SecurityRole;
+import com.lisl.pay.app.model.one.SecurityUser;
+import com.lisl.pay.app.repository.one.SecurityUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,7 +1,6 @@
-package com.lisl.pay.app.repository;
+package com.lisl.pay.app.repository.one;
 
-import com.lisl.pay.app.model.SecurityRole;
-import com.lisl.pay.app.model.SecurityUser;
+import com.lisl.pay.app.model.one.SecurityUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

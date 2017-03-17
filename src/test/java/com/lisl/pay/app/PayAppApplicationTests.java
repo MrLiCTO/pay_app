@@ -1,10 +1,12 @@
 package com.lisl.pay.app;
 
-import com.lisl.pay.app.model.SecurityUser;
-import com.lisl.pay.app.repository.SecurityAuthorityRepository;
-import com.lisl.pay.app.repository.SecurityRoleRepository;
-import com.lisl.pay.app.repository.SecurityUserRepository;
-import com.lisl.pay.app.repository.SysModuleRepository;
+import com.lisl.pay.app.mango.dao.ShardingPersonDao;
+import com.lisl.pay.app.mango.model.Person;
+import com.lisl.pay.app.model.one.SecurityUser;
+import com.lisl.pay.app.repository.one.SecurityAuthorityRepository;
+import com.lisl.pay.app.repository.one.SecurityRoleRepository;
+import com.lisl.pay.app.repository.one.SecurityUserRepository;
+import com.lisl.pay.app.repository.one.SysModuleRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,6 +31,8 @@ public class PayAppApplicationTests {
 	private SysModuleRepository sysModuleRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private ShardingPersonDao personDao;
 	@Test
 	public void contextLoads() {
 		/*SecurityUser securityUser=new SecurityUser();
@@ -79,6 +84,17 @@ public class PayAppApplicationTests {
 		String encode = passwordEncoder.encode("test_pwd");
 		System.out.println(passwordEncoder.matches("test_pwd",encode));
 		//}
+	}
+
+	@Test
+	public void testMongo() {
+		for (int i = 0; i < 100; i++) {
+			Person person = new Person();
+			person.setAge(i);
+			person.setId(UUID.randomUUID().toString().replace("-",""));
+			person.setName("linlin"+i);
+			personDao.add(person);
+		}
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.lisl.pay.app.model;
+package com.lisl.pay.app.model.one;
 
 import javax.persistence.*;
 import java.io.Serializable;
