@@ -1,6 +1,6 @@
 package com.lisl.pay.app.model.one;
 
-import lombok.*;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,10 +14,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "security_user")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class SecurityUser implements UserDetails{
     @Id
@@ -48,6 +44,59 @@ public class SecurityUser implements UserDetails{
             inverseJoinColumns=@JoinColumn(name="role_id"),
             joinColumns=@JoinColumn(name="user_id"))
     private List<SecurityRole> roles;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public List<SecurityRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SecurityRole> roles) {
+        this.roles = roles;
+    }
+
+    public void setAuthorities(Set<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Transient
     private Set<GrantedAuthority> authorities;
     @Override
