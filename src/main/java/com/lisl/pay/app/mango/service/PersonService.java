@@ -1,8 +1,12 @@
 package com.lisl.pay.app.mango.service;
 
 import com.lisl.pay.app.mango.dao.ShardingPersonDao;
+import com.lisl.pay.app.mango.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 /**
  * Created by Administrator on 2017/3/17.
@@ -13,10 +17,10 @@ public class PersonService {
     private ShardingPersonDao personDao;
 
     //@Transaction
-    //@Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class)
     public void addPerson() throws Exception {
         /*Transaction transaction = TransactionFactory.newTransaction();
-        try {
+        try {*/
             for (int i = 0; i < 100; i++) {
                 Person person = new Person();
                 person.setAge(i);
@@ -28,7 +32,7 @@ public class PersonService {
                     throw new Exception();
                 }
             }
-        } catch (Exception e) {
+        /*} catch (Exception e) {
             transaction.rollback();
         }
         transaction.commit();*/
