@@ -40,7 +40,7 @@ public class PersonService {
             @Override
             public void doInTransaction(TransactionStatus status){
                 for (int i = 0; i < 100; i++) {
-                    Person person = new Person();
+                    PersonOne person = new PersonOne();
                     person.setAge(i);
                     person.setId(UUID.randomUUID().toString().replace("-", ""));
                     person.setName("linlin" + i);

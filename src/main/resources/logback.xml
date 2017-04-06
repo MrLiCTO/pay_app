@@ -45,10 +45,10 @@
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <!--打印sql语句,org.hibernate.SQL 类的全路径 -->
+    <!--打印sql语句,org.hibernate.SQL 类的全路径
     <logger name="org.hibernate.SQL" level="debug" additivity="false">
         <appender-ref ref="STDOUT"/>
-    </logger>
+    </logger>-->
 
 
 </configuration>

@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryOne",
-        transactionManagerRef = "transactionManagerOne",
+        //transactionManagerRef = "transactionManagerOne",只有本身没有事务管理期的时候,分布式事务管理期才会生效
         basePackages = {"com.lisl.pay.app.repository.one"}) //设置Repository所在位置
 @Configuration
 public class RepositoryDataSourceConfig {
@@ -58,10 +58,10 @@ public class RepositoryDataSourceConfig {
         return jpaProperties.getHibernateProperties(dataSource);
     }
 
-    @Primary
-    @Bean(name = "transactionManagerOne")
-    public PlatformTransactionManager transactionManagerOne(EntityManagerFactoryBuilder builder) {
-        return new JpaTransactionManager(entityManagerFactoryOne(builder).getObject());
-    }
+//    @Primary
+//    @Bean(name = "transactionManagerOne")
+//    public PlatformTransactionManager transactionManagerOne(EntityManagerFactoryBuilder builder) {
+//        return new JpaTransactionManager(entityManagerFactoryOne(builder).getObject());
+//    }
 
 }

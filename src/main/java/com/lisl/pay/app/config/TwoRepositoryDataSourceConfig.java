@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryTwo",
-        transactionManagerRef = "transactionManagerTwo",
+        //transactionManagerRef = "transactionManagerTwo",
         basePackages = {"com.lisl.pay.app.repository.two"}) //设置Repository所在位置
 @Configuration
 public class TwoRepositoryDataSourceConfig {
@@ -56,9 +56,9 @@ public class TwoRepositoryDataSourceConfig {
         return jpaProperties.getHibernateProperties(dataSource);
     }
 
-    @Bean(name = "transactionManagerTwo")
+    /*@Bean(name = "transactionManagerTwo")
     public PlatformTransactionManager transactionManagerTwo(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryTwo(builder).getObject());
-    }
+    }*/
 
 }

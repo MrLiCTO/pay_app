@@ -2,11 +2,15 @@ package com.lisl.pay.app;
 
 import com.lisl.pay.app.mango.dao.ShardingPersonDao;
 import com.lisl.pay.app.mango.service.PersonService;
+import com.lisl.pay.app.model.one.SecurityAuthority;
+import com.lisl.pay.app.model.one.SecurityRole;
 import com.lisl.pay.app.model.one.SecurityUser;
+import com.lisl.pay.app.model.one.SysModule;
 import com.lisl.pay.app.repository.one.SecurityAuthorityRepository;
 import com.lisl.pay.app.repository.one.SecurityRoleRepository;
 import com.lisl.pay.app.repository.one.SecurityUserRepository;
 import com.lisl.pay.app.repository.one.SysModuleRepository;
+import com.lisl.pay.app.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,10 +39,12 @@ public class PayAppApplicationTests {
     private ShardingPersonDao personDao;
     @Autowired
     private PersonService personService;
+	@Autowired
+    private UserService userService;
 
     @Test
     public void contextLoads() {
-        /*SecurityUser securityUser=new SecurityUser();
+        SecurityUser securityUser=new SecurityUser();
         securityUser.setId(UUID.randomUUID().toString().replace("-",""));
 		securityUser.setAccountNonExpired(true);
 		securityUser.setAccountNonLocked(true);
@@ -73,7 +80,7 @@ public class PayAppApplicationTests {
 		}
 		securityRoleRepository.save(roles);
 		securityUser.setRoles(roles);
-		securityUserRepository.save(securityUser);*/
+		securityUserRepository.save(securityUser);
     }
 
     @Test
@@ -93,12 +100,17 @@ public class PayAppApplicationTests {
     public void testMongo() throws Exception {
         personService.addPerson();
 //        for (int i = 0; i < 100; i++) {
-//            Person person = new Person();
+//            PersonOne person = new PersonOne();
 //            person.setAge(i);
 //            person.setId(UUID.randomUUID().toString().replace("-", ""));
 //            person.setName("linlin" + i);
 //            personDao.add(person);
 //        }
+    }
+
+    @Test
+    public void testJta() throws Exception {
+		userService.addPersons();
     }
 
 }
