@@ -113,7 +113,8 @@ public class DruidConfigration {
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
     @Qualifier("oneDataSource")
     public DataSource oneDataSource() {
-        DruidXADataSource datasource = new DruidXADataSource();
+        DruidXADataSource datasource = new DruidXADataSource();//mongo不支持该数据源
+        //DruidDataSource datasource=new DruidDataSource();//该数据源不支持Atomikos
         datasource.setUrl(this.dbUrl);
         datasource.setUsername(username);
         datasource.setPassword(password);
