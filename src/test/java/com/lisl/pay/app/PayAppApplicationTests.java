@@ -15,9 +15,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.transaction.TransactionManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +45,18 @@ public class PayAppApplicationTests {
     private PersonService personService;
 	@Autowired
     private UserService userService;
+
+	@Resource(name = "jdbcTemplateOne")
+	private JdbcTemplate jdbcTemplateOne;
+
+	@Resource(name = "jdbcTemplateTwo")
+	private JdbcTemplate jdbcTemplateTwo;
+
+	@Resource(name = "jdbcTemplateThree")
+	private JdbcTemplate jdbcTemplateThree;
+
+	@Autowired
+	private TransactionManager transactionManager;//可以直接注入使用
 
     @Test
     public void contextLoads() {
@@ -108,9 +124,24 @@ public class PayAppApplicationTests {
 //        }
     }
 
-    @Test
+    @Test//测试JPA分布式事务
     public void testJta() throws Exception {
 		userService.addPersons();
+    }
+
+    @Test//测试DBC分布式事务
+	@Transactional(rollbackFor = Exception.class)//注解可以
+    public void testJDBC() throws Exception {
+		/*transactionManager.begin();
+		jdbcTemplateOne.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll4","ddd","男",19);
+		jdbcTemplateTwo.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll5","ddd","男",19);
+		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
+		//transactionManager.commit();
+		transactionManager.rollback();*/
+		jdbcTemplateOne.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll4","ddd","男",19);
+		jdbcTemplateTwo.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll5","ddd","男",19);
+		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
+		int i=1/0;
     }
 
 }
