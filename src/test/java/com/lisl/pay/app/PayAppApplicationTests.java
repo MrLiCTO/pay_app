@@ -138,6 +138,7 @@ public class PayAppApplicationTests {
 		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
 		//transactionManager.commit();
 		transactionManager.rollback();*/
+		userService.addPersons();
 		jdbcTemplateOne.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll4","ddd","男",19);
 		jdbcTemplateTwo.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll5","ddd","男",19);
 		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
