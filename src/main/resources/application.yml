@@ -48,7 +48,12 @@ spring:
     suffix: .html
     cache: false
 logging:
-  level: error
+  level: info
 server:
-  port: 9090
+  port: 8443
   context-path: /
+  ssl:
+    key-store: classpath:.keystore
+    key-password: 123456
+    key-store-type: JKS
+    key-alias: tomcat
