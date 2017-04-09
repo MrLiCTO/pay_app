@@ -1,20 +1,27 @@
 package com.lisl.pay.app;
 
 import com.lisl.pay.app.mango.dao.ShardingPersonDao;
-import com.lisl.pay.app.mango.model.Person;
 import com.lisl.pay.app.mango.service.PersonService;
+import com.lisl.pay.app.model.one.SecurityAuthority;
+import com.lisl.pay.app.model.one.SecurityRole;
 import com.lisl.pay.app.model.one.SecurityUser;
+import com.lisl.pay.app.model.one.SysModule;
 import com.lisl.pay.app.repository.one.SecurityAuthorityRepository;
 import com.lisl.pay.app.repository.one.SecurityRoleRepository;
 import com.lisl.pay.app.repository.one.SecurityUserRepository;
 import com.lisl.pay.app.repository.one.SysModuleRepository;
+import com.lisl.pay.app.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import javax.transaction.TransactionManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,10 +43,24 @@ public class PayAppApplicationTests {
     private ShardingPersonDao personDao;
     @Autowired
     private PersonService personService;
+	@Autowired
+    private UserService userService;
+
+	@Resource(name = "jdbcTemplateOne")
+	private JdbcTemplate jdbcTemplateOne;
+
+	@Resource(name = "jdbcTemplateTwo")
+	private JdbcTemplate jdbcTemplateTwo;
+
+	@Resource(name = "jdbcTemplateThree")
+	private JdbcTemplate jdbcTemplateThree;
+
+	@Autowired
+	private TransactionManager transactionManager;//可以直接注入使用
 
     @Test
     public void contextLoads() {
-        /*SecurityUser securityUser=new SecurityUser();
+        SecurityUser securityUser=new SecurityUser();
         securityUser.setId(UUID.randomUUID().toString().replace("-",""));
 		securityUser.setAccountNonExpired(true);
 		securityUser.setAccountNonLocked(true);
@@ -75,7 +96,7 @@ public class PayAppApplicationTests {
 		}
 		securityRoleRepository.save(roles);
 		securityUser.setRoles(roles);
-		securityUserRepository.save(securityUser);*/
+		securityUserRepository.save(securityUser);
     }
 
     @Test
@@ -93,14 +114,35 @@ public class PayAppApplicationTests {
 
     @Test
     public void testMongo() throws Exception {
-        //personService.addPerson();
-        for (int i = 0; i < 100; i++) {
-            Person person = new Person();
-            person.setAge(i);
-            person.setId(UUID.randomUUID().toString().replace("-", ""));
-            person.setName("linlin" + i);
-            personDao.add(person);
-        }
+        personService.addPerson();
+//        for (int i = 0; i < 100; i++) {
+//            PersonOne person = new PersonOne();
+//            person.setAge(i);
+//            person.setId(UUID.randomUUID().toString().replace("-", ""));
+//            person.setName("linlin" + i);
+//            personDao.add(person);
+//        }
+    }
+
+    @Test//测试JPA分布式事务
+    public void testJta() throws Exception {
+		userService.addPersons();
+    }
+
+    @Test//测试DBC分布式事务
+	@Transactional(rollbackFor = Exception.class)//注解可以
+    public void testJDBC() throws Exception {
+		/*transactionManager.begin();
+		jdbcTemplateOne.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll4","ddd","男",19);
+		jdbcTemplateTwo.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll5","ddd","男",19);
+		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
+		//transactionManager.commit();
+		transactionManager.rollback();*/
+		userService.addPersons();
+		jdbcTemplateOne.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll4","ddd","男",19);
+		jdbcTemplateTwo.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll5","ddd","男",19);
+		jdbcTemplateThree.update("insert into person(id, name, sex, age) values(?,?,?,?)","lll6","ddd","男",19);
+		int i=1/0;
     }
 
 }

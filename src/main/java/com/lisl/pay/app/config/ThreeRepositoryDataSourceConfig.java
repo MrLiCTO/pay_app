@@ -23,7 +23,7 @@ import java.util.Map;
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryThree",
-        transactionManagerRef = "transactionManagerThree",
+        //transactionManagerRef = "transactionManagerThree",
         basePackages = {"com.lisl.pay.app.repository.three"}) //设置Repository所在位置
 @Configuration
 public class ThreeRepositoryDataSourceConfig {
@@ -56,9 +56,9 @@ public class ThreeRepositoryDataSourceConfig {
         return jpaProperties.getHibernateProperties(dataSource);
     }
 
-    @Bean(name = "transactionManagerThree")
+    /*@Bean(name = "transactionManagerThree")
     public PlatformTransactionManager transactionManagerThree(EntityManagerFactoryBuilder builder) {
         return new JpaTransactionManager(entityManagerFactoryThree(builder).getObject());
-    }
+    }*/
 
 }

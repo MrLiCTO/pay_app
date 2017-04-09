@@ -23,7 +23,7 @@ public interface ShardingPersonDao {
     public Person getByid(@ShardingBy String id);
 
     /*@SQL("select id, name, sex, age from #table where name like %:1%")
-    public List<Person> findByName(String name);*/
+    public List<PersonOne> findByName(String name);*/
 
     @SQL("delete from #table where id = :1")
     public void delete(@ShardingBy String id);

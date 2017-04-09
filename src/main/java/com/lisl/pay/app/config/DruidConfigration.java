@@ -1,10 +1,15 @@
 package com.lisl.pay.app.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.pool.xa.DruidXADataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,6 +21,10 @@ import javax.sql.DataSource;
  * Created by Administrator on 2017/1/16.
  */
 @Configuration
+@EnableAutoConfiguration(exclude = {
+        DataSourceAutoConfiguration.class,
+        HibernateJpaAutoConfiguration.class, //if you are using Hibernate
+        DataSourceTransactionManagerAutoConfiguration.class})
 public class DruidConfigration {
     private Logger logger = LoggerFactory.getLogger(DruidConfigration.class);
 
@@ -103,8 +112,9 @@ public class DruidConfigration {
     @Bean     //声明其为Bean实例
     @Primary  //在同样的DataSource中，首先使用被标注的DataSource
     @Qualifier("oneDataSource")
-    public DataSource dataSource() {
-        DruidDataSource datasource = new DruidDataSource();
+    public DataSource oneDataSource() {
+        DruidXADataSource datasource = new DruidXADataSource();//mongo不支持该数据源
+        //DruidDataSource datasource=new DruidDataSource();//该数据源不支持Atomikos
         datasource.setUrl(this.dbUrl);
         datasource.setUsername(username);
         datasource.setPassword(password);
@@ -129,13 +139,20 @@ public class DruidConfigration {
         }
         datasource.setConnectionProperties(connectionProperties);
 
-        return datasource;
+        AtomikosDataSourceBean atomikosDataSource=new AtomikosDataSourceBean();
+        atomikosDataSource.setUniqueResourceName("oneDataSource");
+        atomikosDataSource.setXaDataSource(datasource);
+        atomikosDataSource.setMinPoolSize(5);
+        atomikosDataSource.setMaxPoolSize(20);
+        atomikosDataSource.setTestQuery("SELECT 1");
+
+        return atomikosDataSource;
     }
 
     @Bean     //声明其为Bean实例
     @Qualifier("twoDataSource")
-    public DataSource dataSource_two() {
-        DruidDataSource datasource = new DruidDataSource();
+    public DataSource twoDataSource() {
+        DruidXADataSource datasource = new DruidXADataSource();
         datasource.setUrl(this.dbUrl_two);
         datasource.setUsername(username_two);
         datasource.setPassword(password_two);
@@ -160,13 +177,20 @@ public class DruidConfigration {
         }
         datasource.setConnectionProperties(connectionProperties);
 
-        return datasource;
+        AtomikosDataSourceBean atomikosDataSource=new AtomikosDataSourceBean();
+        atomikosDataSource.setUniqueResourceName("twoDataSource");
+        atomikosDataSource.setXaDataSource(datasource);
+        atomikosDataSource.setMinPoolSize(5);
+        atomikosDataSource.setMaxPoolSize(20);
+        atomikosDataSource.setTestQuery("SELECT 1");
+
+        return atomikosDataSource;
     }
 
     @Bean     //声明其为Bean实例
     @Qualifier("threeDataSource")
-    public DataSource dataSource_three() {
-        DruidDataSource datasource = new DruidDataSource();
+    public DataSource threeDataSource() {
+        DruidXADataSource datasource = new DruidXADataSource();
         datasource.setUrl(this.dbUrl_three);
         datasource.setUsername(username_three);
         datasource.setPassword(password_three);
@@ -191,6 +215,13 @@ public class DruidConfigration {
         }
         datasource.setConnectionProperties(connectionProperties);
 
-        return datasource;
+        AtomikosDataSourceBean atomikosDataSource=new AtomikosDataSourceBean();
+        atomikosDataSource.setUniqueResourceName("threeDataSource");
+        atomikosDataSource.setXaDataSource(datasource);
+        atomikosDataSource.setMinPoolSize(5);
+        atomikosDataSource.setMaxPoolSize(20);
+        atomikosDataSource.setTestQuery("SELECT 1");
+
+        return atomikosDataSource;
     }
 }
